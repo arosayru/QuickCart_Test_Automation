@@ -4,14 +4,16 @@ import { BasePage } from './BasePage';
 export class CartPage extends BasePage {
   readonly emptyCartMessage: Locator;
   readonly shopNowLink: Locator;
-  readonly checkoutButton: Locator;
+  readonly checkoutLink: Locator;
   readonly cartTotal: Locator;
 
   constructor(page: Page) {
     super(page);
     this.emptyCartMessage = page.getByText('Your cart is empty');
     this.shopNowLink = page.getByRole('link', { name: 'Shop now' });
-    this.checkoutButton = page.getByRole('button', { name: /checkout/i });
+    // Confirmed via earlier page snapshot: "Proceed to checkout" is a link
+    // (navigates to /checkout), not a button.
+    this.checkoutLink = page.getByRole('link', { name: 'Proceed to checkout' });
     // Confirmed via test run: "Total" and its $ amount are separate sibling
     // elements (not one text node), so matching the label alone isn't
     // enough — scope to the row/container that holds both.
