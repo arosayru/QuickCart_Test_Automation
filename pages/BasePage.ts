@@ -16,7 +16,7 @@ export class BasePage {
     return {
       productsLink: this.page.getByRole('link', { name: 'Products', exact: true }),
       // Codegen confirmed that the cart link updates its accessible name
-      // to include the item count (e.g. "Cart 1"). Because of that, matching
+      // to include the item count (ex: "Cart 1"). Because of that, matching
       // exactly "Cart" isn't reliable, so a starts-with regex is used instead.
       cartLink: this.page.getByRole('link', { name: /^Cart/ }),
       loginLink: this.page.getByRole('link', { name: 'Login', exact: true }),

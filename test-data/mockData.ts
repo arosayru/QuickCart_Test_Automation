@@ -56,7 +56,7 @@ export interface SignUpDetails {
  * relying on a pre-created account and instead register a fresh user
  * for each test run. This keeps tests self-contained, repeatable,
  * and prevents conflicts from duplicate emails.
- * Uses fake placeholder data only — never real user information.
+ * Uses fake placeholder data only - never real user information.
  */
 export function createDynamicTestUser(): SignUpDetails {
   const uniqueId = Date.now();
