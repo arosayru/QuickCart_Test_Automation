@@ -4,11 +4,10 @@ import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 
 test.describe('Scenario 4: Checkout Shipping Validation (known defect)', () => {
-  // Marks this test as expected to fail against the live site today.
-  // Playwright reports it as an "expected failure" (not a red build) as
-  // long as it keeps failing — and flags it loudly if it ever starts
-  // passing, which is exactly the signal you want once this bug is fixed.
-  // See bug report: "Checkout succeeds without a shipping address."
+  // This test is intentionally expected to fail until the checkout bug is fixed.
+  // Playwright won't mark the build as failed while the failure is expected,
+  // but it will notify us if the test unexpectedly passes.
+  // Tracking bug: "Checkout succeeds without a shipping address."
   test.fail(
     true,
     'Known defect — checkout confirms an order with no shipping address at all. Tracked in the bug report.'
@@ -25,12 +24,11 @@ test.describe('Scenario 4: Checkout Shipping Validation (known defect)', () => {
     await cartPage.checkoutLink.click();
 
     const checkoutPage = new CheckoutPage(page);
-    // Deliberately skip fillShippingAddress() — this is the point of the test.
+    // Deliberately skip fillShippingAddress() - this is the point of the test.
     await checkoutPage.placeOrderWithoutShippingDetails();
 
-    // Expected (once fixed): the order is rejected and the user stays on
-    // /checkout with a validation message. Actual: the site confirms the
-    // order anyway with an empty shipping address.
+    // Expected: an empty shipping address should prevent checkout and show a
+    // validation error on /checkout. Actual: the order is completed anyway.
     await expect(checkoutPage.orderConfirmedHeading).not.toBeVisible();
     await expect(page).toHaveURL(/\/checkout$/);
   });

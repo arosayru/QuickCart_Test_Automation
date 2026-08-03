@@ -14,11 +14,10 @@ export class CheckoutPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    // NOTE: built from a screenshot, not confirmed via codegen — unlike
-    // the sign-up form, these labels show no "*" required marker, which
-    // is itself a clue toward the bug below. Verify with
-    // `npx playwright codegen https://cart-quirks-shop.lovable.app/checkout`
-    // if any of these don't resolve.
+    // Based on the screenshot rather than codegen. Unlike the sign-up form,
+    // these labels don't display the "*" required marker, which is another
+    // hint related to the bug below. If any locator fails, verify it with:
+    // npx playwright codegen https://cart-quirks-shop.lovable.app/checkout
     this.pageHeading = page.getByRole('heading', { name: 'Checkout', exact: true });
     this.fullNameInput = page.getByRole('textbox', { name: 'Full name' });
     this.streetInput = page.getByRole('textbox', { name: 'Street' });

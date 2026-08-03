@@ -1,9 +1,9 @@
 import { Page } from '@playwright/test';
 
 /**
- * Shared shell for every page object: the global nav is identical
- * across Home / Products / Cart / Login / Sign Up, so it lives here
- * once instead of being redeclared in every subclass.
+ * Common base for all page objects. The global navigation doesn't
+ * change between Home, Products, Cart, Login, and Sign Up, so
+ * we keep it here instead of repeating it in every page class.
  */
 export class BasePage {
   constructor(protected readonly page: Page) {}
@@ -15,10 +15,9 @@ export class BasePage {
   get nav() {
     return {
       productsLink: this.page.getByRole('link', { name: 'Products', exact: true }),
-      // NOTE: confirmed via codegen — once an item is in the cart, the link's
-      // accessible name becomes "Cart 1", "Cart 2", etc. (a count badge is
-      // appended). exact:'Cart' would silently stop matching, so this uses a
-      // starts-with regex instead.
+      // Codegen confirmed that the cart link updates its accessible name
+      // to include the item count (e.g. "Cart 1"). Because of that, matching
+      // exactly "Cart" isn't reliable, so a starts-with regex is used instead.
       cartLink: this.page.getByRole('link', { name: /^Cart/ }),
       loginLink: this.page.getByRole('link', { name: 'Login', exact: true }),
       signUpLink: this.page.getByRole('link', { name: 'Sign Up', exact: true }),

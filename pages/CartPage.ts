@@ -11,12 +11,12 @@ export class CartPage extends BasePage {
     super(page);
     this.emptyCartMessage = page.getByText('Your cart is empty');
     this.shopNowLink = page.getByRole('link', { name: 'Shop now' });
-    // Confirmed via earlier page snapshot: "Proceed to checkout" is a link
-    // (navigates to /checkout), not a button.
+    // An earlier page snapshot confirmed that "Proceed to checkout"
+    // is a link rather than a button, since it navigates to /checkout.
     this.checkoutLink = page.getByRole('link', { name: 'Proceed to checkout' });
-    // Confirmed via test run: "Total" and its $ amount are separate sibling
-    // elements (not one text node), so matching the label alone isn't
-    // enough — scope to the row/container that holds both.
+    // Verified during testing: the "Total" label and its dollar amount
+    // are rendered as separate sibling elements, not a single text node.
+    // Match the row or container that includes both instead of the label alone.
     this.cartTotal = page
       .locator('div')
       .filter({ has: page.getByText('Total', { exact: true }) })
@@ -27,8 +27,9 @@ export class CartPage extends BasePage {
     await this.goto('/cart');
   }
 
-  // Confirmed via page snapshot: unlike the Products page (heading, level 3),
-  // the product name on the Cart page renders as plain paragraph text.
+  // An earlier page snapshot showed that the Cart page displays the
+  // product name as regular paragraph text, unlike the Products page,
+  // where it's rendered as a level 3 heading.
   private cartLineItem(productName: string): Locator {
     return this.page
       .locator('div')

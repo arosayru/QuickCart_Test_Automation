@@ -14,7 +14,7 @@ export class SignUpPage extends BasePage {
     this.fullNameInput = page.getByRole('textbox', { name: 'Full name *' });
     this.emailInput = page.getByRole('textbox', { name: 'Email *' });
     this.phoneInput = page.getByRole('textbox', { name: 'Phone number *' });
-    // exact: true is required here — without it, 'Password *' fuzzy-matches
+    // exact: true is required here - without it, 'Password *' fuzzy-matches
     // as a substring of 'Confirm password *' too (confirmed via codegen).
     this.passwordInput = page.getByRole('textbox', { name: 'Password *', exact: true });
     this.confirmPasswordInput = page.getByRole('textbox', { name: 'Confirm password *' });

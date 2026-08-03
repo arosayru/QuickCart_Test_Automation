@@ -7,7 +7,7 @@ test.describe('Performance', () => {
     const totalLoadTime = Date.now() - start;
 
     expect(response?.status()).toBeLessThan(400);
-    // Wall-clock budget — recalibrate against a measured baseline for your CI runner.
+    // Wall-clock budget - recalibrate against a measured baseline for your CI runner.
     expect(totalLoadTime).toBeLessThan(3000);
 
     const navigationTiming = await page.evaluate(() => {

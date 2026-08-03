@@ -11,10 +11,10 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.emailInput = page.getByRole('textbox', { name: /email/i });
-    // TODO (verify via codegen): password fields don't get an implicit
-    // 'textbox' role, so this relies on a <label for="..."> association.
-    // If the field only has a placeholder, swap for
-    // page.getByPlaceholder(/password/i).
+    // TODO: Confirm with codegen. This locator relies on the password
+    // field being associated with a <label>, since password inputs don't
+    // have an implicit 'textbox' role. Use
+    // page.getByPlaceholder(/password/i) if the field only has a placeholder.
     this.passwordInput = page.getByLabel(/password/i);
     this.rememberMeCheckbox = page.getByRole('checkbox', { name: /remember me/i });
     this.loginButton = page.getByRole('button', { name: /log in/i });
@@ -35,10 +35,10 @@ export class LoginPage extends BasePage {
     await this.rememberMeCheckbox.click();
   }
 
-  // Confirmed via screenshot: a pink banner reading exactly "Invalid email
-  // or password" — appears identically for empty fields AND wrong
-  // credentials. Matching on the exact text is more robust here than
-  // guessing at an ARIA role we can't confirm without DOM inspection.
+  // Based on the screenshot, the same pink "Invalid email or password"
+  // banner is shown whether the fields are empty or the credentials are
+  // incorrect. Since the DOM hasn't been inspected, matching the exact
+  // text is safer than relying on an assumed ARIA role.
   errorMessage(): Locator {
     return this.page.getByText('Invalid email or password');
   }

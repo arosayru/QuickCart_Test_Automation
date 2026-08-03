@@ -51,12 +51,12 @@ export interface SignUpDetails {
 }
 
 /**
- * Generates a disposable, uniquely-identified test user at runtime.
- * This site has no real seeding endpoint, so instead of depending on a
- * pre-existing static account (which doesn't actually exist here), a
- * test can sign this user up and immediately log in with it — self-
- * contained, and safe to run repeatedly without email collisions.
- * Uses obviously-fake placeholder data — never real personal details.
+ * Creates a temporary, unique test user during runtime.
+ * Since the site doesn't provide a user seeding endpoint, we avoid
+ * relying on a pre-created account and instead register a fresh user
+ * for each test run. This keeps tests self-contained, repeatable,
+ * and prevents conflicts from duplicate emails.
+ * Uses fake placeholder data only — never real user information.
  */
 export function createDynamicTestUser(): SignUpDetails {
   const uniqueId = Date.now();

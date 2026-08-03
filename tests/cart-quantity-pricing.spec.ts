@@ -21,11 +21,11 @@ test.describe('Scenario 2: Cart Quantity & Price Calculation', () => {
     const expectedSubtotal = (product.price * 3).toFixed(2);
     await expect(cartPage.lineItemSubtotal(productName)).toHaveText(`$${expectedSubtotal}`);
 
-    // The cart adds an 8% tax before showing "Total" — comparing against the
+    // The cart adds an 8% tax before showing "Total" - comparing against the
     // raw subtotal would be an incorrect expectation, not a locator problem.
     // An exact string match is also unreliable here: we've already confirmed
     // this site displays tax/total with uncorrected floating-point precision
-    // (e.g. "$6.3991999999999996"), so we extract the number and compare
+    // (ex: "$6.3991999999999996"), so we extract the number and compare
     // with a tolerance instead of asserting exact rendered text.
     const expectedTotalWithTax = Number(expectedSubtotal) * 1.08;
     const totalText = await cartPage.cartTotal.innerText();

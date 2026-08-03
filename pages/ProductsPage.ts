@@ -3,7 +3,7 @@ import { BasePage } from './BasePage';
 
 export class ProductsPage extends BasePage {
   readonly pageHeading: Locator;
-  readonly paginationStatus: Locator; // e.g. "Page 1 of 3"
+  readonly paginationStatus: Locator; // ex: "Page 1 of 3"
 
   constructor(page: Page) {
     super(page);
@@ -16,12 +16,11 @@ export class ProductsPage extends BasePage {
   }
 
   /**
-   * Scopes to the specific product card. A single `.filter({has: heading})`
-   * matches every ancestor div containing that heading (the card, the grid
-   * container, the page wrapper...) — `.first()` grabbed the outermost one,
-   * causing a strict-mode violation across all 5 "Add to cart" buttons.
-   * Adding a second filter (has: the button) and taking `.last()` instead
-   * resolves to the innermost div containing both — the actual card.
+   * Limits the locator to the product card itself. Matching only the
+   * heading also matches its ancestor containers, so `.first()` selects
+   * the outermost element and triggers a strict-mode violation by
+   * containing every "Add to cart" button. Filtering by both the heading
+   * and the button, then using `.last()`, correctly targets the card.
    */
   private productCard(productName: string): Locator {
     return this.page
