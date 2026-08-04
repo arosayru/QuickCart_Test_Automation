@@ -1,4 +1,4 @@
-# QuickCart — Playwright Test Automation
+# QuickCart - Playwright Test Automation
 
 Automated test suite for [QuickCart](https://cart-quirks-shop.lovable.app/), built with Playwright, TypeScript, and the Page Object Model pattern, as part of a QA technical assessment.
 
